@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Debug Tools",
   "version": "1.0",
-  "description": "A simple Chrome extension for formatting JSON",
+  "description": "A simple Chrome extension for debug",
   "permissions": ["scripting"],
   "action": {
     "default_width": 800,
