@@ -1,6 +1,49 @@
 import { useState } from 'react';
 import './json_formatter.styles.scss';
 
+const getKeysNumber = (data) => {
+  const isObject = typeof data === 'object' && data!== null;
+  if (!isObject) {
+    return 0;
+  }
+  return Object.keys(data).length;
+}
+
+const JsonTreeNode = ({ nodeKey, value, depth }) => {
+  const [expanded, setExpanded] = useState(true);
+  const isArray = Array.isArray(value);
+  const keysLength = getKeysNumber(value);
+
+  console.log('key: ', nodeKey);
+  console.log('value: ', value);
+  console.log('depth: ', depth);
+
+  return (
+    <div className="json-item">
+      {keysLength === 0 ? (
+        <>
+          <span className="key">"{nodeKey}"</span>:{" "}
+          <JsonTree data={value} depth={depth + 1} />
+        </>
+      ) : (
+        <>
+          <div className="json-header" onClick={() => setExpanded(!expanded)}>
+            <span className="key">"{nodeKey}"</span>:{" "}
+            {isArray ? '[' : '{'}
+            <div className='toggle-container'>
+              <span>{expanded ? ' ▼' : ' ▶'}</span>
+              {` // ${keysLength} ${keysLength === 1 ? 'item' : 'items'} `}
+            </div>
+            {!expanded && `${isArray ? ']' : '}'}`}
+          </div>
+          {expanded && <JsonTree data={value} depth={depth + 1} />}
+        </>
+      )}
+    </div>
+  );
+};
+
+
 const JsonTree = ({ data, depth = 0 }) => {
   const [expanded, setExpanded] = useState(true);
   const isObject = typeof data === 'object' && data !== null;
@@ -25,26 +68,39 @@ const JsonTree = ({ data, depth = 0 }) => {
   };
 
   const keys = Object.keys(data);
+
+  console.log('keys: ', keys);
   if (keys.length === 0) {
-    return isArray ? <span className="json-value">[]</span> : <span className="json-value">{{}}</span>;
+    return isArray ? (
+      <span>{JSON.stringify([])}</span>
+    ) : (
+      <span>{JSON.stringify({})}</span>
+    );
   }
 
   return (
-    <div className="json-node">
-      <div className="json-header" onClick={toggleExpand}>
-        {isArray ? '[' : '{'}
-        <span className="toggle-icon">{expanded ? '▼' : '▶'}</span>
-        {isArray ? `] (${keys.length})` : `} (${keys.length})`}
-      </div>
+    <div>
+      {!depth && (
+        <div className="json-header" onClick={toggleExpand}>
+          {isArray ? '[' : '{'}
+          <div className='toggle-container'>
+            <span>{expanded ? ' ▼' : ' ▶'}</span>
+            {` // ${keys.length} ${keys.length === 1 ? 'item' : 'items'} `}
+          </div>
+          {!expanded && `${isArray ? ']' : '}'}`}
+        </div>
+      )}
       {expanded && (
-        <div className="json-children" style={{ marginLeft: `${depth * 5}px` }}>
+        <div>
           {keys.map((key, index) => (
-            <div key={index} className="json-item">
-              <span className="key">"{key}"</span>:{" "}
-              <JsonTree data={data[key]} depth={depth + 1} />
-              {index < keys.length - 1 && <span className="json-comma">,</span>}
-            </div>
+            <JsonTreeNode 
+              key={index}
+              nodeKey={key}
+              value={data[key]} 
+              depth={depth} 
+            />
           ))}
+          <div>{isArray ? ']' : '}'}</div>
         </div>
       )}
     </div>
