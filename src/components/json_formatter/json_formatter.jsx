@@ -170,7 +170,7 @@ const JsonFormatter = () => {
             }
             setIsViewing(true)
           }} 
-          className={`button ${isViewing ? 'disabled': ''}`}
+          className={`button ${isViewing || isEditing ? 'disabled': ''}`}
         >View JSON</button> 
         <button 
           onClick={() => {
