@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Debug Tools",
+  "version": "1.0",
+  "description": "A simple Chrome extension for debug",
+  "permissions": ["scripting"],
+  "action": {
+    "default_width": 800,
+    "default_height": 600
+  },
+  "icons": {
+    "16": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["index.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+// 定义变量
+$primary-color: #007bff;
+$primary-hover-color: #0056b3;
+$border-radius: 5px;
+$font-size-base: 18px;
+$font-size-button: 16px;
+$font-family-base: 'Arial', sans - serif;
+
+@mixin button-styles {
+  margin: 20px 10px;
+  padding: 10px 20px;
+  font-size: $font-size-button;
+  cursor: pointer;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+
+  &:hover {
+    background-color: $primary-hover-color;
+  }
+}
+
+@mixin font-styles {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.editor-container {
+  height: 80vh; 
+  width: 84vw;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.json-formatter-textarea {
+  @include font-styles();
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.json-formatter-pre {
+  @include font-styles();
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  resize: none;
+  white-space: pre;
+  overflow: auto;
+}
+
+.clear-button {
+  @include button-styles();
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  margin: 0;
+  padding: 5px 10px;
+  font-size: 12px;
+  z-index: 1;
+}
+
+.button-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button-container button {
+  @include button-styles();
+}
+
+.button-container button.disabled {
+  opacity: 0.5;
+}
+
+.json-tree {
+  @include font-styles();
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  resize: none;
+  white-space: pre;
+  overflow: auto;
+}
+
+.toggle-container {
+  margin-right: 0;
+  color: #00000044;
+}
+
+.json-header {
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  color: #666;
+  flex-direction: row;
+}
+
+.inline-display {
+  display: inline;
+}
+
+.json-item {
+  margin-left: 20px;
+}
+
+.json-value {
+  color: #2ecc40;
+}
+
+.key {
+  color: #d73a49;
+}
+
+.string {
+  color: #032f62;
+}
+
+.number {
+  color: #005cc5;
+}
+
+.boolean {
+  color: #6f42c1;
+}
+
+.null {
+  color: #d23632;
+}
