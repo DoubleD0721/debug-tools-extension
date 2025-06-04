@@ -1,0 +1,81 @@
+$font-size-button: 15px;
+$border-radius: 5px;
+$error-color: red;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  font-weight: bold;
+  color: #555;
+}
+
+h1 {
+  text-align: center;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+  width: 100vw; 
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: none;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  font-size: $font-size-button;
+  border-radius: $border-radius;
+}
+
+.sidebar button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.main-content {
+  flex: 1;
+  padding: 0;
+}
+
+.error-message {
+  color: $error-color;
+  display: flex;
+  justify-content: center;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px 5px 5px 5px;
+  opacity: 0;
+  animation: fadeInOut 3s ease-in-out;
+  z-index: 9999;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(100%); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(100%); }
+}

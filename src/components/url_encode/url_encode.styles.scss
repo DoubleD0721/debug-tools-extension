@@ -1,0 +1,42 @@
+// 定义变量
+$primary-color: #007bff;
+$primary-hover-color: #0056b3;
+$border-radius: 5px;
+$font-size-base: 14px;
+$font-size-button: 16px;
+$gap-size: 20px;
+
+.url-encode-textarea {
+  height: 80vh; 
+  width: calc(100% - 20px);
+  margin: 10px;
+  padding: 10px;
+  font-size: $font-size-base;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.button-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button-container button {
+  margin: 20px 10px;
+  padding: 10px 20px;
+  font-size: $font-size-button;
+  cursor: pointer;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+
+  &:hover {
+    background-color: $primary-hover-color;
+  }
+}

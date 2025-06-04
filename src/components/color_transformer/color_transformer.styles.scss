@@ -1,0 +1,94 @@
+// 定义变量
+$primary-color: #007bff;
+$primary-hover-color: #0056b3;
+$error-color: red;
+$border-radius: 5px;
+$font-size-base: 14px;
+$font-size-button: 16px;
+$gap-size: 20px;
+
+.color-transformer-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.button-group button {
+  margin: 20px 10px;
+  padding: 10px 20px;
+  font-size: $font-size-button;
+  cursor: pointer;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $primary-hover-color;
+  }
+}
+
+.rgba-input-group {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.input-area {
+  align-items: center;
+  padding: 5px;
+  margin: 5px;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.color-transformer-textarea {
+  padding: 5px;
+  margin: 10px;
+  font-size: $font-size-base;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  resize: none;
+  height: 30px;
+  box-sizing: border-box;
+}
+
+.result {
+  margin-top: 15px;
+}
+
+.color-preview {
+  width: 80px;
+  height: 50px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.error {
+  color: $error-color;
+  margin-top: 5px;
+}
