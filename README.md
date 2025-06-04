@@ -1,4 +1,4 @@
-# <img src="public/icons/icon.png" alt="icon" width="30" height="30"/> Debug Tools Extension
+# <img src="public/icons/icon.png" alt="icon" width="30" height="30"/> [Debug Tools Extension](https://debug-tools-extension.vercel.app/)
 
 ## 概述
 `Debug Tools Extension` 是一个简单的 Chrome 扩展程序，主要用于 JSON 格式化、颜色转换和 URL 编码/解码，方便开发者在开发过程中进行数据处理和调试。该项目由 [Create React App](https://github.com/facebook/create-react-app) 初始化搭建。

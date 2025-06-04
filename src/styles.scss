@@ -23,9 +23,10 @@ h1 {
 }
 
 .sidebar {
-  width: 200px;
+  width: 240px;
   background-color: #f0f0f0;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .sidebar button {
@@ -49,8 +50,9 @@ h1 {
 }
 
 .main-content {
-  flex: 1;
+  width: calc(100vw - 200px); 
   padding: 0;
+  box-sizing: border-box;
 }
 
 .error-message {
