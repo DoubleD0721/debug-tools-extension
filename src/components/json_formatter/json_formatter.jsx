@@ -157,7 +157,7 @@ const JsonFormatter = () => {
         <button className="clear-button" onClick={clearInput}>Clear</button>
       </div>
       {error && <text className="error-message">{error}</text>}
-      <div className="button-container">
+      <div className="json-formatter-button-container">
         <button onClick={copyToClipboard} className="button">Copy to Clipboard</button>
         <button onClick={formatJson} className="button">Format JSON</button>
         <button onClick={minifyJson} className="button">Minify JSON</button>

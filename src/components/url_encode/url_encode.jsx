@@ -69,7 +69,7 @@ const UrlEncode = () => {
         wrap='off'
       />
       {error && <text className="error-message">{error}</text>}
-      <div className="button-container">
+      <div className="url-encode-button-container">
         <button onClick={copyToClipboard} className="button">Copy to Clipboard</button>
         <button onClick={encodeUrl} className="button">Encode</button>
         <button onClick={decodeUrl} className="button">Decode</button>
