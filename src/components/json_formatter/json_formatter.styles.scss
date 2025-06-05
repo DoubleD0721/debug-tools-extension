@@ -3,18 +3,18 @@ $primary-color: #007bff;
 $primary-hover-color: #0056b3;
 $border-radius: 5px;
 $font-size-base: 18px;
-$font-size-button: 16px;
+$font-size: 15px;
 $font-family-base: 'Arial', sans - serif;
 
 @mixin button-styles {
   margin: 20px 10px;
   padding: 10px 20px;
-  font-size: $font-size-button;
   cursor: pointer;
   background-color: $primary-color;
   color: white;
   border: none;
   border-radius: $border-radius;
+  font-size: $font-size;
 
   &:hover {
     background-color: $primary-hover-color;
@@ -30,13 +30,21 @@ $font-family-base: 'Arial', sans - serif;
 
 .editor-container {
   height: 80vh; 
-  width: 84vw;
-  margin: 10px;
+  width: 98%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: $border-radius;
-  box-sizing: border-box;
+  justify-self: center;
   position: relative;
+}
+
+.json-formatter-button-container {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0px;
 }
 
 .json-formatter-textarea {
@@ -72,19 +80,11 @@ $font-family-base: 'Arial', sans - serif;
   z-index: 1;
 }
 
-.button-container {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 10px;
-}
-
-.button-container button {
+.json-formatter-button-container button {
   @include button-styles();
 }
 
-.button-container button.disabled {
+.json-formatter-button-container button.disabled {
   opacity: 0.5;
 }
 

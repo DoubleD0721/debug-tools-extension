@@ -1,6 +1,10 @@
-$font-size-button: 15px;
+$font-size: 15px;
 $border-radius: 5px;
 $error-color: red;
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -23,10 +27,11 @@ h1 {
 }
 
 .sidebar {
-  width: 240px;
+  width: 15%;
   background-color: #f0f0f0;
   padding: 20px;
   box-sizing: border-box;
+  z-index: 1;
 }
 
 .sidebar button {
@@ -40,8 +45,8 @@ h1 {
   border: none;
   background-color: #e0e0e0;
   cursor: pointer;
-  font-size: $font-size-button;
   border-radius: $border-radius;
+  font-size: $font-size;
 }
 
 .sidebar button.active {
@@ -50,7 +55,7 @@ h1 {
 }
 
 .main-content {
-  width: calc(100vw - 200px); 
+  width: 85%; 
   padding: 0;
   box-sizing: border-box;
 }
