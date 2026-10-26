@@ -4,6 +4,9 @@ import UrlEncode from './components/url_encode';
 import ColorTransformer from './components/color_transformer';
 import TimestampConverter from './components/timestamp_converter';
 import QrGenerator from './components/qr_generator';
+import TextDiff from './components/text_diff';
+import RegexTester from './components/regex_tester';
+import LottiePreview from './components/lottie_preview';
 
 import './styles.scss';
 
@@ -14,6 +17,9 @@ const SidebarButton = ({ buttonKey, title, selectedTab, onClick }) => {
     'url-encode': '↗',
     'timestamp-converter': '◷',
     'qr-generator': '▦',
+    'text-diff': '⇄',
+    'regex-tester': '.*',
+    'lottie-preview': '▶',
   };
 
   return (
@@ -44,6 +50,9 @@ function App() {
     { key: 'url-encode', title: 'Url Encode' },
     { key: 'timestamp-converter', title: 'Timestamp' },
     { key: 'qr-generator', title: 'QR Code' },
+    { key: 'text-diff', title: 'Text Diff' },
+    { key: 'regex-tester', title: 'Regex Tester' },
+    { key: 'lottie-preview', title: 'Lottie Preview' },
   ];
 
   return (
@@ -79,6 +88,9 @@ function App() {
         {selectedTab === 'url-encode' && <UrlEncode />}
         {selectedTab === 'timestamp-converter' && <TimestampConverter />}
         {selectedTab === 'qr-generator' && <QrGenerator />}
+        {selectedTab === 'text-diff' && <TextDiff />}
+        {selectedTab === 'regex-tester' && <RegexTester />}
+        {selectedTab === 'lottie-preview' && <LottiePreview />}
       </div>
     </div>
   );

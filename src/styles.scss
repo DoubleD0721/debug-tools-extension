@@ -103,6 +103,14 @@ h1 {
   letter-spacing: 0.14em;
 }
 
+.sidebar nav {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-color: rgba(148, 163, 184, 0.25) transparent;
+  scrollbar-width: thin;
+}
+
 .sidebar button {
   display: flex;
   align-items: center;
@@ -230,8 +238,11 @@ h1 {
 
   .sidebar nav {
     display: flex;
+    min-height: auto;
     gap: 6px;
+    flex: none;
     overflow-x: auto;
+    overflow-y: hidden;
   }
 
   .nav-label,
