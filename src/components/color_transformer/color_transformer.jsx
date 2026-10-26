@@ -26,7 +26,7 @@ const rgbaStringToObject = (rgbaString) => {
 const InputWithLabel = ({ labelText, value, onChange, rows = 1, cols = 5 }) => {
   return (
     <div className={`input-area ${labelText.length > 2 ? 'column' : 'row'}`}>
-      <h3>{labelText}</h3>
+      <label>{labelText}</label>
       <textarea
         className="color-transformer-textarea"
         value={value}
@@ -99,41 +99,48 @@ const ColorTransformer = () => {
   ]
 
   return (
-    <div className="color-transformer-container">
+    <div>
       <h1>Color Transformer</h1>
-      <div className="input-group">
-        <div className="rgba-input-group">
-          {rgbaTextAreaItem.map((item) => {
-            return (
-              <InputWithLabel
-                labelText={item.label}
-                value={item.value}
-                onChange={item.onChange}
-              />
-            )
-          })}
+      <div className="color-transformer-container">
+        <div className="input-group rgba-section">
+          <span className="section-label">RGBA COLOR</span>
+          <div className="rgba-input-group">
+            {rgbaTextAreaItem.map((item) => {
+              return (
+                <InputWithLabel
+                  key={item.label}
+                  labelText={item.label}
+                  value={item.value}
+                  onChange={item.onChange}
+                />
+              )
+            })}
+          </div>
+          <InputWithLabel
+            labelText='RGBA'
+            value={`rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`}
+            onChange={(e) => setRgba(rgbaStringToObject(e.target.value) || rgba)}
+            rows="1"
+            cols="21"/>
         </div>
-        <InputWithLabel
-          labelText='RGBA'
-          value={`rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`}
-          onChange={(e) => setRgba(rgbaStringToObject(e.target.value) || rgba)}
-          rows="1"
-          cols="21"/>
-      </div>
 
-      <div className="button-group">
-        <button onClick={rgbaToHex}>rgba to hex</button>
-        <div className="color-preview" style={{ backgroundColor: previewColor }} />
-        <button onClick={hexToRgba}>hex to rgba</button>
-      </div>
-      
-      <div className="input-group">
-        <InputWithLabel
-          labelText='Hex'
-          value={hex}
-          onChange={(e) => setHex(e.target.value)}
-          rows="1"
-          cols="10"/>
+        <div className="button-group">
+          <button onClick={rgbaToHex}>RGBA → HEX</button>
+          <div className="color-preview" style={{ backgroundColor: previewColor }}>
+            {!previewColor && <span>Preview</span>}
+          </div>
+          <button onClick={hexToRgba}>HEX → RGBA</button>
+        </div>
+        
+        <div className="input-group hex-section">
+          <span className="section-label">HEX COLOR</span>
+          <InputWithLabel
+            labelText='Hex'
+            value={hex}
+            onChange={(e) => setHex(e.target.value)}
+            rows="1"
+            cols="10"/>
+        </div>
       </div>
     </div>
   )

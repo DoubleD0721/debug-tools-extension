@@ -6,13 +6,20 @@ import ColorTransformer from './components/color_transformer';
 import './styles.scss';
 
 const SidebarButton = ({ buttonKey, title, selectedTab, onClick }) => {
+  const icons = {
+    'json-formatter': '{ }',
+    'color-transformer': '◐',
+    'url-encode': '↗',
+  };
+
   return (
     <button 
       key={buttonKey}
       className={selectedTab === buttonKey ? 'active' : ''}
       onClick={() => onClick(buttonKey)}
     >
-      {title}
+      <span className="nav-icon">{icons[buttonKey]}</span>
+      <span>{title}</span>
     </button>
   );
 };
@@ -20,7 +27,7 @@ const SidebarButton = ({ buttonKey, title, selectedTab, onClick }) => {
 function App() {
   const [selectedTab, setSelectedTab] = useState(() => {
     const tab = localStorage.getItem('selectedTab');
-    return tab || '';
+    return tab || 'json-formatter';
   });
 
   useEffect(() => {
@@ -36,14 +43,29 @@ function App() {
   return (
     <div className="App">
       <div className="sidebar">
-        {tabs.map((tab) => (
-          <SidebarButton
-            buttonKey={tab.key}
-            title={tab.title}
-            selectedTab={selectedTab}
-            onClick={setSelectedTab}
-          />
-        ))}
+        <div className="brand">
+          <div className="brand-mark">D</div>
+          <div>
+            <strong>Debug Tools</strong>
+            <span>Developer utilities</span>
+          </div>
+        </div>
+        <nav>
+          <p className="nav-label">TOOLS</p>
+          {tabs.map((tab) => (
+            <SidebarButton
+              key={tab.key}
+              buttonKey={tab.key}
+              title={tab.title}
+              selectedTab={selectedTab}
+              onClick={setSelectedTab}
+            />
+          ))}
+        </nav>
+        <div className="sidebar-footer">
+          <span className="status-dot" />
+          Runs locally
+        </div>
       </div>
       <div className="main-content">
         {selectedTab === 'json-formatter' && <JsonFormatter />}
