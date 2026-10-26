@@ -1,7 +1,7 @@
 # <img src="public/icons/icon.png" alt="icon" width="30" height="30"/> [Debug Tools Extension](https://debug-tools-extension.vercel.app/)
 
 ## 概述
-`Debug Tools Extension` 是一个面向前端开发者的本地调试工具集合，可作为网页或 Chrome 扩展运行。目前支持 JSON 处理、颜色转换、URL 编解码、时间戳转换和二维码生成。所有数据均在浏览器本地处理，不会上传到服务器。
+`Debug Tools Extension` 是一个面向前端开发者的本地调试工具集合，可作为网页或 Chrome 扩展运行。目前支持 JSON 处理、颜色转换、URL 编解码、时间戳转换、二维码生成、文本对比、正则测试和 Lottie 预览。所有数据均在浏览器本地处理，不会上传到服务器。
 
 在线体验：[debug-tools-extension.vercel.app](https://debug-tools-extension.vercel.app/)
 
@@ -25,6 +25,18 @@
   - 根据文本或 URL 实时生成二维码
   - 支持尺寸与容错级别选择
   - 下载 PNG 图片
+- **Text Diff**
+  - 行级和词级差异高亮
+  - 支持左右对照与行内模式
+  - 可忽略空白和大小写
+- **Regex Tester**
+  - JavaScript 正则表达式实时测试
+  - 匹配高亮、捕获组和位置详情
+  - Replace 结果预览
+- **Lottie Preview**
+  - 粘贴或上传本地 Lottie JSON
+  - SVG 动画预览及播放控制
+  - 支持循环、倍速和背景切换
 
 ## 项目结构
 ```plaintext
@@ -39,7 +51,10 @@ debug-tools-extension/
 │   │   ├── color_transformer/
 │   │   ├── url_encode/
 │   │   ├── timestamp_converter/
-│   │   └── qr_generator/
+│   │   ├── qr_generator/
+│   │   ├── text_diff/
+│   │   ├── regex_tester/
+│   │   └── lottie_preview/
 │   ├── App.jsx
 │   └── index.js
 ├── package.json
@@ -85,6 +100,8 @@ zip -r ../debug-tools-extension-chrome.zip .
 - Sass
 - Chrome Extension Manifest V3
 - `qrcode`
+- `diff`
+- `lottie-web`
 
 ## 贡献
 
