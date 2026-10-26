@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import JsonFormatter from './components/json_formatter';
 import UrlEncode from './components/url_encode';
 import ColorTransformer from './components/color_transformer';
+import TimestampConverter from './components/timestamp_converter';
+import QrGenerator from './components/qr_generator';
 
 import './styles.scss';
 
@@ -10,6 +12,8 @@ const SidebarButton = ({ buttonKey, title, selectedTab, onClick }) => {
     'json-formatter': '{ }',
     'color-transformer': '◐',
     'url-encode': '↗',
+    'timestamp-converter': '◷',
+    'qr-generator': '▦',
   };
 
   return (
@@ -37,7 +41,9 @@ function App() {
   const tabs = [
     { key: 'json-formatter', title: 'Json Formatter' },
     { key: 'color-transformer', title: 'Color Transformer' },
-    { key: 'url-encode', title: 'Url Encode'  }
+    { key: 'url-encode', title: 'Url Encode' },
+    { key: 'timestamp-converter', title: 'Timestamp' },
+    { key: 'qr-generator', title: 'QR Code' },
   ];
 
   return (
@@ -71,6 +77,8 @@ function App() {
         {selectedTab === 'json-formatter' && <JsonFormatter />}
         {selectedTab === 'color-transformer' && <ColorTransformer />}
         {selectedTab === 'url-encode' && <UrlEncode />}
+        {selectedTab === 'timestamp-converter' && <TimestampConverter />}
+        {selectedTab === 'qr-generator' && <QrGenerator />}
       </div>
     </div>
   );
