@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import JsonTree from './json_tree';
 
 import './json_formatter.styles.scss'; 
@@ -21,7 +21,49 @@ const unescape = (str) => {
     .replace(/\\t/g, '\t');
 }
 
+const getJsonErrorDetails = (error, source) => {
+  const message = error?.message || 'Invalid JSON format';
+  const positionMatch = message.match(/position\s+(\d+)/i);
+  const lineColumnMatch = message.match(/line\s+(\d+)\s+column\s+(\d+)/i);
+  let position = positionMatch ? Number(positionMatch[1]) : null;
+
+  if (position === null && lineColumnMatch) {
+    const targetLine = Number(lineColumnMatch[1]);
+    const targetColumn = Number(lineColumnMatch[2]);
+    const lines = source.split('\n');
+    position = lines
+      .slice(0, Math.max(0, targetLine - 1))
+      .reduce((total, line) => total + line.length + 1, 0) + targetColumn - 1;
+  }
+
+  // "Unexpected end" errors do not always include a position.
+  if (position === null && /end of json input|end of data/i.test(message)) {
+    position = source.length;
+  }
+
+  if (position === null) {
+    return { message, position: null, line: null, column: null, snippet: null };
+  }
+
+  const safePosition = Math.max(0, Math.min(position, source.length));
+  const beforeError = source.slice(0, safePosition);
+  const line = beforeError.split('\n').length;
+  const lineStart = beforeError.lastIndexOf('\n') + 1;
+  const lineEndIndex = source.indexOf('\n', safePosition);
+  const lineEnd = lineEndIndex === -1 ? source.length : lineEndIndex;
+  const snippet = source.slice(lineStart, lineEnd) || '(end of input)';
+
+  return {
+    message,
+    position: safePosition,
+    line,
+    column: safePosition - lineStart + 1,
+    snippet,
+  };
+};
+
 const JsonFormatter = () => {
+  const textareaRef = useRef(null);
   const [inputJson, setInputJson] = useState(() => {
     const json = localStorage.getItem('lastJsonResult');
     return json || ''
@@ -40,8 +82,24 @@ const JsonFormatter = () => {
     setIsEditing(false);
     setIsViewing(false)
   }
-  const fail = (message) => {
-    setError(message);
+
+  const fail = (parseError) => {
+    const details = getJsonErrorDetails(parseError, inputJson);
+    setError(details);
+    setIsEditing(true);
+    setIsViewing(false);
+
+    if (details.position !== null) {
+      requestAnimationFrame(() => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+        textarea.focus();
+        textarea.setSelectionRange(
+          details.position,
+          Math.min(details.position + 1, inputJson.length)
+        );
+      });
+    }
   }
 
   const copyToClipboard = () => {
@@ -68,7 +126,7 @@ const JsonFormatter = () => {
       setInputJson(formatted);
       success();
     } catch (e) {
-      fail(e.message || 'Invalid JSON format');
+      fail(e);
     }
   };
 
@@ -79,7 +137,7 @@ const JsonFormatter = () => {
       setInputJson(minifiedJson);
       success();
     } catch (e) {
-      fail(e.message || 'Minify JSON format');
+      fail(e);
     }
   };
 
@@ -135,11 +193,15 @@ const JsonFormatter = () => {
   return (
     <div>
       <h1>Json Formatter</h1>
-      <div className="editor-container">
+      <div className={`editor-container ${error ? 'has-error' : ''}`}>
         {isEditing ? (
           <textarea
+            ref={textareaRef}
             value={inputJson}
-            onChange={(e) => setInputJson(e.target.value)}
+            onChange={(e) => {
+              setInputJson(e.target.value);
+              setError(null);
+            }}
             placeholder="Enter JSON here"
             className="json-formatter-textarea"
             wrap="off"
@@ -156,7 +218,21 @@ const JsonFormatter = () => {
         )}
         <button className="clear-button" onClick={clearInput}>Clear</button>
       </div>
-      {error && <text className="error-message">{error}</text>}
+      {error && (
+        <div className="json-error-panel" role="alert">
+          <div className="json-error-heading">
+            <strong>JSON syntax error</strong>
+            {error.line && <span>Line {error.line}, Column {error.column}</span>}
+          </div>
+          <p>{error.message}</p>
+          {error.snippet && (
+            <pre className="json-error-snippet">
+              <code>{error.snippet}</code>
+              <span style={{ '--error-column': error.column }}>{'^'}</span>
+            </pre>
+          )}
+        </div>
+      )}
       <div className="json-formatter-button-container">
         <button onClick={copyToClipboard} className="button">Copy to Clipboard</button>
         <button onClick={formatJson} className="button">Format JSON</button>
